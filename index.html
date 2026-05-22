@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dishen Jariwala — SolidWorks Automation Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0a0a0f;
+      --bg2:       #111118;
+      --bg3:       #16161f;
+      --border:    rgba(255,255,255,0.07);
+      --accent:    #00d4ff;
+      --accent2:   #0099cc;
+      --accent-glow: rgba(0,212,255,0.15);
+      --text:      #e8e8f0;
+      --muted:     #7a7a9a;
+      --white:     #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.4;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    section, nav, footer { position: relative; z-index: 1; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(10,10,15,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--white); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 9px 22px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 60px 80px; position: relative; }
+    .hero-glow { position: absolute; top: 15%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%); pointer-events: none; }
+    .hero-glow-2 { position: absolute; bottom: 5%; left: -5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,153,204,0.05) 0%, transparent 70%); pointer-events: none; }
+    .hero-content { max-width: 800px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); color: var(--accent); padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 32px; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(40px, 5.5vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -2px; color: var(--white); margin-bottom: 28px; }
+    h1 .accent { color: var(--accent); }
+    h1 .dim { color: var(--muted); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 580px; margin-bottom: 48px; font-weight: 300; line-height: 1.8; }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { background: var(--accent); color: var(--bg); padding: 14px 32px; border-radius: 4px; font-weight: 600; font-size: 15px; text-decoration: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif; display: inline-block; }
+    .btn-primary:hover { background: var(--white); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(0,212,255,0.25); }
+    .btn-secondary { background: transparent; color: var(--text); padding: 14px 32px; border-radius: 4px; font-weight: 500; font-size: 15px; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-stats { display: flex; gap: 52px; margin-top: 72px; padding-top: 48px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: var(--white); letter-spacing: -1px; }
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* SHARED SECTION */
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(26px, 3.5vw, 42px); font-weight: 800; color: var(--white); letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+    .section-sub { font-size: 17px; color: var(--muted); max-width: 520px; font-weight: 300; }
+
+    /* CLIENTS STRIP */
+    #clients { padding: 52px 60px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .clients-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; text-align: center; }
+    .clients-row { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: center; align-items: center; }
+    .client-chip { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 0.5px; transition: color 0.2s; }
+    .client-chip:hover { color: var(--text); }
+    .client-chip.us { color: var(--text); }
+
+    /* ABOUT */
+    #about { padding: 120px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; border-top: 1px solid var(--border); }
+    .about-text p { color: var(--muted); font-size: 16px; margin-bottom: 20px; font-weight: 300; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .credential-row { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; }
+    .credential { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; }
+    .credential .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .credential .cred-title { font-size: 14px; font-weight: 500; color: var(--white); }
+    .credential .cred-sub { font-size: 12px; color: var(--muted); }
+    .about-skills { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .skill-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; transition: border-color 0.2s, transform 0.2s; }
+    .skill-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-2px); }
+    .skill-icon { font-size: 20px; margin-bottom: 10px; }
+    .skill-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .skill-desc { font-size: 12px; color: var(--muted); }
+
+    /* SERVICES */
+    #services { padding: 120px 60px; border-top: 1px solid var(--border); }
+    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; gap: 40px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .service-item { background: var(--bg2); padding: 36px 30px; transition: background 0.2s; position: relative; }
+    .service-item:hover { background: var(--bg3); }
+    .service-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.2s; }
+    .service-item:hover::before { opacity: 1; }
+    .service-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 2px; margin-bottom: 18px; }
+    .service-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+    .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* PROJECTS */
+    #projects { padding: 120px 60px; border-top: 1px solid var(--border); }
+    .projects-header { margin-bottom: 52px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+    .project-card:hover { border-color: rgba(0,212,255,0.35); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .project-thumb { height: 140px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .project-thumb-icon { font-size: 42px; opacity: 0.25; }
+    .project-thumb-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 20px 22px 14px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    .project-body { padding: 24px; }
+    .project-client { font-size: 11px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+    .project-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+    .project-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
+    .tag { background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.15); color: var(--accent); font-size: 10px; padding: 3px 9px; border-radius: 4px; font-weight: 500; }
+    .project-result { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.1); border-radius: 6px; font-size: 12px; color: var(--text); }
+    .project-result::before { content: '↑'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ROI */
+    #roi { padding: 120px 60px; border-top: 1px solid var(--border); }
+    .roi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+    .roi-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 32px; position: relative; overflow: hidden; }
+    .roi-card::after { content: ''; position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%); }
+    .roi-before-after { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .roi-val { text-align: center; }
+    .roi-val .num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; }
+    .roi-val .num.before { color: var(--muted); }
+    .roi-val .num.after { color: var(--accent); }
+    .roi-val .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .roi-arrow { color: var(--accent); font-size: 20px; font-weight: 700; }
+    .roi-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .roi-desc { font-size: 13px; color: var(--muted); }
+    .roi-badge { display: inline-block; margin-top: 14px; background: rgba(0,212,255,0.1); color: var(--accent); font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; }
+
+    /* PROCESS */
+    #process { padding: 120px 60px; border-top: 1px solid var(--border); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 27px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(90deg, var(--accent), rgba(0,212,255,0.05)); }
+    .process-step { padding: 0 20px; text-align: center; }
+    .step-num { width: 54px; height: 54px; background: var(--bg2); border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--accent); margin: 0 auto 22px; position: relative; z-index: 1; }
+    .step-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ENGAGEMENT */
+    #engagement { padding: 120px 60px; border-top: 1px solid var(--border); }
+    .eng-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+    .eng-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 36px 28px; transition: border-color 0.2s, transform 0.2s; }
+    .eng-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
+    .eng-card.featured { border-color: rgba(0,212,255,0.3); background: linear-gradient(135deg, var(--bg2), rgba(0,212,255,0.03)); }
+    .eng-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 14px; }
+    .eng-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .eng-desc { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.7; }
+    .eng-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .eng-features li { font-size: 13px; color: var(--muted); display: flex; gap: 10px; }
+    .eng-features li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+
+    /* CONTACT */
+    #contact { padding: 120px 60px; border-top: 1px solid var(--border); text-align: center; }
+    .contact-inner { max-width: 620px; margin: 0 auto; }
+    .contact-inner .section-sub { margin: 0 auto 48px; }
+    .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+    .contact-link { display: flex; align-items: center; gap: 10px; background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 13px 26px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .contact-link .icon { font-size: 16px; }
+
+    /* FOOTER */
+    footer { padding: 28px 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero, #about, #services, #projects, #roi, #process, #engagement, #contact { padding: 80px 24px; }
+      #clients { padding: 40px 24px; }
+      #about { grid-template-columns: 1fr; gap: 48px; }
+      .services-grid, .projects-grid, .roi-grid, .eng-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps::before { display: none; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dishen<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#roi">ROI</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:dishenjariwala@gmail.com" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-badge">SolidWorks API Automation Specialist</div>
+    <h1>
+      I eliminate<br>
+      <span class="accent">repetitive CAD work</span><br>
+      <span class="dim">for manufacturers.</span>
+    </h1>
+    <p class="hero-sub">
+      <strong>Dishen Jariwala</strong> — 9+ years building SolidWorks automation tools that cut design cycles from <strong>3 days to under 1 hour</strong>. I help US manufacturing companies save 60–95% of engineering time on repetitive CAD tasks.
+    </p>
+    <div class="hero-actions">
+      <a href="https://upwork.com/fl/dishenjariwala" target="_blank" class="btn-primary">See My Work ↗</a>
+      <a href="https://linkedin.com/in/dishen-jariwala" target="_blank" class="btn-secondary">Connect on LinkedIn</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">50<span>+</span></div>
+        <div class="stat-label">Automation Tools Built</div>
+      </div>
+      <div>
+        <div class="stat-num">9<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">95<span>%</span></div>
+        <div class="stat-label">Avg. Time Reduction</div>
+      </div>
+      <div>
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Global Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="clients-label">Trusted by manufacturers in the US, Europe &amp; Australia</div>
+  <div class="clients-row">
+    <span class="client-chip us">OnePointe Solutions <small style="color:var(--muted);font-size:10px;">(US)</small></span>
+    <span class="client-chip us">LRC Coils <small style="color:var(--muted);font-size:10px;">(US)</small></span>
+    <span class="client-chip us">Texas Metal Works <small style="color:var(--muted);font-size:10px;">(US)</small></span>
+    <span class="client-chip us">Sert Engineering <small style="color:var(--muted);font-size:10px;">(US)</small></span>
+    <span class="client-chip us">Array Marketing <small style="color:var(--muted);font-size:10px;">(US)</small></span>
+    <span class="client-chip">L&amp;T</span>
+    <span class="client-chip">ISGEC Heavy Engineering</span>
+    <span class="client-chip">INOXCVA</span>
+    <span class="client-chip">Pademelon <small style="color:var(--muted);font-size:10px;">(AU)</small></span>
+    <span class="client-chip">Lechler</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text fade-up">
+    <div class="section-label">About</div>
+    <div class="section-title">Engineer who codes.<br>Not a coder who draws.</div>
+    <p>I'm a Mechanical Design Engineer with a <strong>Master's in Machine Design</strong> and deep hands-on expertise in SolidWorks API automation. I understand how manufacturing companies actually design products — and exactly where engineers lose hours every day.</p>
+    <p>My background spans pressure vessels, heat exchangers, sheet metal, weldments, structural fabrication, lab furniture, and custom machinery. I don't just write macros — I build <strong>production-grade systems</strong> that run reliably for years.</p>
+    <p>I've worked directly with US manufacturers delivering full-cycle work: engineering logic → automation tool → fabrication-ready output.</p>
+    <div class="credential-row">
+      <div class="credential">
+        <div class="icon">🎓</div>
+        <div>
+          <div class="cred-title">M.E. — Machine Design Specialization</div>
+          <div class="cred-sub">Gujarat Technological University · IIT Roorkee Published Researcher</div>
+        </div>
+      </div>
+      <div class="credential">
+        <div class="icon">🏭</div>
+        <div>
+          <div class="cred-title">Former Assistant Professor — SVNIT</div>
+          <div class="cred-sub">Theory of Machines, Machine Design, Strength of Materials</div>
+        </div>
+      </div>
+      <div class="credential">
+        <div class="icon">🌐</div>
+        <div>
+          <div class="cred-title">9+ Years · 15+ Global Clients</div>
+          <div class="cred-sub">US, Europe, Australia · Available for direct contracts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about-skills fade-up">
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">SolidWorks API</div>
+      <div class="skill-desc">Advanced — macros, add-ins, full automation tools (2016–2024)</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <div class="skill-name">VB.NET / VBA / C#</div>
+      <div class="skill-desc">Primary stack for all automation development</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📐</div>
+      <div class="skill-name">Mechanical Design</div>
+      <div class="skill-desc">Sheet metal, weldments, pressure vessels, structural</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📄</div>
+      <div class="skill-name">Drawing Automation</div>
+      <div class="skill-desc">DXF, PDF batch export, BOM, GD&amp;T extraction</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔧</div>
+      <div class="skill-name">Autodesk Inventor API</div>
+      <div class="skill-desc">Advanced — parametric automation tools</div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📦</div>
+      <div class="skill-name">PDM API / FEA</div>
+      <div class="skill-desc">SolidWorks PDM API · Simulation &amp; FEA validation</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header fade-up">
+    <div>
+      <div class="section-label">Services</div>
+      <div class="section-title">What I build for<br>manufacturing companies</div>
+    </div>
+    <p class="section-sub">Every service targets one goal — eliminate the repetitive engineering work that slows your team down.</p>
+  </div>
+  <div class="services-grid fade-up">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <div class="service-name">SolidWorks Macros &amp; Add-ins</div>
+      <div class="service-desc">Custom macros and enterprise-grade add-ins with UI, built on VB.NET and C#. From simple batch scripts to full-featured toolbar add-ins.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div class="service-name">Drawing Automation</div>
+      <div class="service-desc">Auto-generate fabrication drawings from 3D models — views, annotations, title blocks, BOMs. Works for parts, assemblies, and full product families.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div class="service-name">Parametric Configurators</div>
+      <div class="service-desc">Rule-driven 3D configurators: input parameters → complete models, assemblies, and drawings auto-generated in minutes. Built for configure-to-order products.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">04</div>
+      <div class="service-name">DXF / PDF Batch Export</div>
+      <div class="service-desc">Batch-export DXF files for laser/plasma cutting and PDFs for documentation. Hundreds of parts processed in minutes with correct file naming and folder structure.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">05</div>
+      <div class="service-name">BOM &amp; GD&amp;T Automation</div>
+      <div class="service-desc">Accurate BOMs auto-generated from assemblies, exported to Excel or ERP. GD&amp;T and tolerance data extraction with balloon automation for revision control.</div>
+    </div>
+    <div class="service-item">
+      <div class="service-num">06</div>
+      <div class="service-name">Standalone Engineering Apps</div>
+      <div class="service-desc">Custom desktop applications in VB.NET for estimating, quoting, data management, and file processing — built to integrate with your existing workflow.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="projects-header fade-up">
+    <div class="section-label">Case Studies</div>
+    <div class="section-title">Selected Projects</div>
+    <p class="section-sub">Real automation systems delivered for manufacturing clients across the US, Europe, and India.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0a0f1a, #0e1929);">
+        <div class="project-thumb-icon">🌀</div>
+        <div class="project-thumb-label">HVAC · Ongoing</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">HVAC Manufacturer · India</div>
+        <div class="project-title">Condenser Coil Quote &amp; 3D Model Automation</div>
+        <div class="project-desc">Excel inputs (coil series, header dims, material) → auto-generates complete 3D coil assembly → quote drawing with full technical specs, annotations, and BOM — in one click.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">VB.NET</span><span class="tag">MS Excel</span><span class="tag">Configurator</span>
+        </div>
+        <div class="project-result">95% reduction in model generation time. Zero manual 3D modelling.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0a1218, #0c1a24);">
+        <div class="project-thumb-icon">🪵</div>
+        <div class="project-thumb-label">Furniture Mfg · 2023–2024</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">Cabinet Manufacturer · International</div>
+        <div class="project-title">Kitchen Cabinet Full Automation Pipeline</div>
+        <div class="project-desc">Complete pipeline: room layout input → 3D model → quote drawing with BOM → individual part fabrication drawings → DXFs per component → organized folder structure → Excel price quote. All in one run.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">VB.NET</span><span class="tag">Excel</span><span class="tag">DXF</span>
+        </div>
+        <div class="project-result">Under 30 min full package. 2 FTE workloads eliminated. 100% BOM accuracy.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0d1208, #121a0c);">
+        <div class="project-thumb-icon">🪜</div>
+        <div class="project-thumb-label">Structural · USA · 2021</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">Sert Engineering · United States</div>
+        <div class="project-title">Custom Stair Configurator &amp; Shop Drawing Automation</div>
+        <div class="project-desc">Define stair parameters in Excel → auto-generate 3D model → produce shop drawings, DXF, STEP files → all output organized in the client-specified US folder structure with correct nomenclature.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">VBA</span><span class="tag">Excel</span><span class="tag">STEP</span>
+        </div>
+        <div class="project-result">Hours → minutes per order. 100% file-naming compliance. Client-ready delivery.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0f0a14, #1a0e24);">
+        <div class="project-thumb-icon">🔩</div>
+        <div class="project-thumb-label">Heavy Mfg · Ongoing</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">Industrial Equipment Manufacturer · India</div>
+        <div class="project-title">PFHE Cold Box &amp; Pressure Vessel Automation</div>
+        <div class="project-desc">Input material, nozzle specs, header dims → auto-generates complete PFHE cold box assembly (headers, nozzles) → produces GA drawing with BOM, predefined weld details, and all annotations. Currently in production use.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">VB.NET</span><span class="tag">GA Drawings</span>
+        </div>
+        <div class="project-result">90% reduction in design-to-drawing time. Live in production.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0a0e14, #0d1520);">
+        <div class="project-thumb-icon">📋</div>
+        <div class="project-thumb-label">Sheet Metal · 2022</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">Sheet Metal Fabricator</div>
+        <div class="project-title">Sheet Metal Add-in — DXF, BOM &amp; Properties</div>
+        <div class="project-desc">Multi-function SolidWorks add-in: batch DXF generation, custom property management, configuration cleanup, assembly drawing generation, and BOM accuracy. Deployed as a persistent toolbar add-in.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">VB.NET</span><span class="tag">Add-in</span><span class="tag">DXF</span>
+        </div>
+        <div class="project-result">Batch DXF generation from hours to minutes. Errors eliminated.</div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-thumb" style="background: linear-gradient(135deg, #0f0f0a, #1a1808);">
+        <div class="project-thumb-icon">📐</div>
+        <div class="project-thumb-label">Industrial Equipment · 2021–2022</div>
+      </div>
+      <div class="project-body">
+        <div class="project-client">Heavy Equipment Manufacturer</div>
+        <div class="project-title">GD&amp;T &amp; Tolerance Data Extraction Tool</div>
+        <div class="project-desc">Automated extraction of GD&T and tolerance data from SolidWorks and NX drawings to Excel. Tool also automates balloon creation, revision updates, and PDF exports. Supports both SW and Siemens NX.</div>
+        <div class="project-tags">
+          <span class="tag">SolidWorks API</span><span class="tag">NX Open</span><span class="tag">VB.NET</span><span class="tag">Excel</span>
+        </div>
+        <div class="project-result">Manual extraction eliminated. Revision cycles automated end-to-end.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROI -->
+<section id="roi">
+  <div class="fade-up">
+    <div class="section-label">ROI</div>
+    <div class="section-title">Before vs. After — The real impact</div>
+    <p class="section-sub">Numbers from actual automation projects delivered to manufacturing clients.</p>
+  </div>
+  <div class="roi-grid fade-up">
+    <div class="roi-card">
+      <div class="roi-before-after">
+        <div class="roi-val"><div class="num before">3–4 hrs</div><div class="lbl">Before</div></div>
+        <div class="roi-arrow">→</div>
+        <div class="roi-val"><div class="num after">8–12 min</div><div class="lbl">After</div></div>
+      </div>
+      <div class="roi-title">Drawing Generation</div>
+      <div class="roi-desc">Manual creation of views, annotations, title blocks, and BOM per component — replaced by automated batch generation in one run.</div>
+      <span class="roi-badge">85% Faster</span>
+    </div>
+    <div class="roi-card">
+      <div class="roi-before-after">
+        <div class="roi-val"><div class="num before">1–2 days</div><div class="lbl">Before</div></div>
+        <div class="roi-arrow">→</div>
+        <div class="roi-val"><div class="num after">15–30 min</div><div class="lbl">After</div></div>
+      </div>
+      <div class="roi-title">3D Model Creation</div>
+      <div class="roi-desc">Manual parametric modelling from scratch for each configuration — replaced by input-driven automatic assembly generation.</div>
+      <span class="roi-badge">95% Faster</span>
+    </div>
+    <div class="roi-card">
+      <div class="roi-before-after">
+        <div class="roi-val"><div class="num before">High Risk</div><div class="lbl">Before</div></div>
+        <div class="roi-arrow">→</div>
+        <div class="roi-val"><div class="num after">Near Zero</div><div class="lbl">After</div></div>
+      </div>
+      <div class="roi-title">Error &amp; Revision Rate</div>
+      <div class="roi-desc">Manual errors in dimensions, BOM entries, file naming, and drawing standards — eliminated through validated, rule-driven output.</div>
+      <span class="roi-badge">Standardized</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="fade-up">
+    <div class="section-label">How I Work</div>
+    <div class="section-title">Simple, transparent process</div>
+  </div>
+  <div class="process-steps fade-up">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Discovery Call</div>
+      <div class="step-desc">30-min call to understand your workflow and identify the biggest time-wasters in your CAD process.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Scope &amp; Quote</div>
+      <div class="step-desc">Defined deliverables, timeline, and fixed cost. No vague estimates — you know exactly what you're getting.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Build &amp; Test</div>
+      <div class="step-desc">Development with regular check-ins. You test on real data before final delivery — no surprises.</div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-title">Deliver &amp; Support</div>
+      <div class="step-desc">Full handover with documentation. Available for bugs, questions, and future enhancements.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section id="engagement">
+  <div class="fade-up">
+    <div class="section-label">Engagement Models</div>
+    <div class="section-title">Flexible ways to work together</div>
+  </div>
+  <div class="eng-grid fade-up">
+    <div class="eng-card">
+      <div class="eng-label">One-Time</div>
+      <div class="eng-title">Fixed-Scope Project</div>
+      <div class="eng-desc">Defined deliverables, timeline, and fixed cost. Best for standalone automation tools, add-ins, or configurators.</div>
+      <ul class="eng-features">
+        <li>Detailed scope document &amp; milestone plan</li>
+        <li>Fixed timeline and delivery commitment</li>
+        <li>Post-delivery support period included</li>
+        <li>Ideal for: one-time automation builds</li>
+      </ul>
+    </div>
+    <div class="eng-card featured">
+      <div class="eng-label">Most Popular</div>
+      <div class="eng-title">Ongoing Retainer</div>
+      <div class="eng-desc">Monthly engagement for continuous automation development, feature additions, and support across your CAD environment.</div>
+      <ul class="eng-features">
+        <li>Dedicated hours committed per month</li>
+        <li>Priority response and issue resolution</li>
+        <li>Iterative feature development &amp; updates</li>
+        <li>Ideal for: growing automation programs</li>
+      </ul>
+    </div>
+    <div class="eng-card">
+      <div class="eng-label">Exploratory</div>
+      <div class="eng-title">Technical Consultation</div>
+      <div class="eng-desc">Automation roadmap, feasibility assessment, and API strategy — before committing to full development.</div>
+      <ul class="eng-features">
+        <li>CAD workflow audit and analysis</li>
+        <li>Automation feasibility report</li>
+        <li>Technology and approach recommendations</li>
+        <li>Ideal for: companies exploring automation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner fade-up">
+    <div class="section-label">Contact</div>
+    <div class="section-title">Ready to stop doing<br>CAD work manually?</div>
+    <p class="section-sub">30-minute discovery call — I'll audit your current workflow and show you exactly where automation saves the most time.</p>
+    <a href="mailto:dishenjariwala@gmail.com" class="btn-primary" style="display:inline-block;">Email Me Directly →</a>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/dishen-jariwala" class="contact-link" target="_blank">
+        <span class="icon">💼</span> LinkedIn
+      </a>
+      <a href="https://upwork.com/fl/dishenjariwala" class="contact-link" target="_blank">
+        <span class="icon">🔗</span> Upwork Profile
+      </a>
+      <a href="mailto:dishenjariwala@gmail.com" class="contact-link">
+        <span class="icon">✉️</span> dishenjariwala@gmail.com
+      </a>
+      <a href="https://youtube.com/@djariwala1990" class="contact-link" target="_blank">
+        <span class="icon">▶️</span> YouTube
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Dishen Jariwala — SolidWorks Automation Specialist</p>
+  <p>Based in India · Serving US, Europe &amp; Australia · <a href="mailto:dishenjariwala@gmail.com">dishenjariwala@gmail.com</a></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) el.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  setTimeout(() => {
+    document.querySelector('#hero .fade-up')?.classList.add('visible');
+  }, 100);
+</script>
+</body>
+</html>
